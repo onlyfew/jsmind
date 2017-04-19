@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="../style/jsmind.css" />
+        <style type="text/css">
+            #jsmind_container{
+                width:400px;
+                height:300px;
+                border:solid 1px #ccc;
+                /*background:#f4f4f4;*/
+                background:#f4f4f4;
+            }
+        </style>
+        <!--
+            enable drag-and-drop feature
+            <script type="text/javascript" src="js/jsmind.draggable.js"></script>
+        -->
+    </head>
+    <body>
+        <div id="jsmind_container"></div>
+        <button onclick="printData()">printData</button>
+
+        <script type="text/javascript" src="../js/jsmind.js"></script>
+        <script type="text/javascript">
+            var mind = {
+              "data": {
+                "id": "ujfdpxoz",
+                "topic": "My Mind<br/>Features",
+                "children": [
+                      {
+                        "id": "oufzmqvy",
+                        "topic": "Node selection, manipulation",
+                        "children": [
+                          {
+                            "id": "abcdefgh",
+                            "topic": "abcdefgh"
+                          },
+                          {
+                            "id": "abcdefgi",
+                            "topic": "abcdefgi"
+                          }
+                        ]
+                      },
+                      {
+                        "id": "hsthllrc",
+                        "topic": "<b>Rich</b> <i>text</i> <strike>editing</strike>"
+                      }
+                ]
+              }
+            };
+            var options = {
+                container:'jsmind_container',
+                editable:true
+            };
+            var jm = new jsMind(options);
+            jm.show(mind);
+
+            function printData() {
+                var mind_data = jm.get_data();
+                var mind_string = jsMind.util.json.json2string(mind_data);
+                console.log(mind_string);
+            }
+        </script>
+    </body>
+</html>

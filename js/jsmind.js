@@ -482,12 +482,14 @@
             get_data:function(mind){
                 var df = jm.format.node_tree;
                 var json = {};
+                /*
                 json.meta = {
                     name : mind.name,
                     author : mind.author,
                     version : mind.version
                 };
                 json.format = 'node_tree';
+                */
                 json.data = df._buildnode(mind.root);
                 return json;
             },
@@ -536,8 +538,8 @@
                 if(!(node instanceof jm.node)){return;}
                 var o = {
                     id : node.id,
-                    topic : node.topic,
-                    expanded : node.expanded
+                    topic : node.topic/*,
+                    expanded : node.expanded*/
                 };
                 if(!!node.parent && node.parent.isroot){
                     o.direction = node.direction == jm.direction.left?'left':'right';
