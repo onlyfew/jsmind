@@ -954,11 +954,41 @@
         },
 
         canvas:{
+            xFactor: 0.6,
+            yFactor: -0.02,
+            getFirstControllPoint: function(x1,y1,x2,y2) {
+                return {x: x1 + (x2 - x1)*this.xFactor, y: y1 + (y2 - y1)*this.yFactor};
+            },
+            getSencondControllPoint: function(x1,y1,x2,y2) {
+                return {x: x2 - (x2 - x1) * this.xFactor, y: y2 - (y2 - y1)*this.yFactor};
+            },
             bezierto: function(ctx,x1,y1,x2,y2){
+                // ctx.beginPath();
+                // ctx.moveTo(x1,y1);
+                // ctx.bezierCurveTo(x1+(x2-x1)*2/3,y1,x1,y2,x2,y2);
+                // ctx.stroke();
+
+                var lineHeadHeight = 6.0;
+                var offset = 2;
+                y1 -= lineHeadHeight/2.0;
+                y2 -= offset;
+                var pointControl1 = this.getFirstControllPoint(x1,y1,x2,y2);
+                var pointControl2 = this.getSencondControllPoint(x1,y1,x2,y2);
+
                 ctx.beginPath();
-                ctx.moveTo(x1,y1);
-                ctx.bezierCurveTo(x1+(x2-x1)*2/3,y1,x1,y2,x2,y2);
+                ctx.moveTo(x1, y1);
+                ctx.bezierCurveTo(pointControl1.x,pointControl1.y,pointControl2.x,pointControl2.y,x2,y2);
+                
+                y1 += lineHeadHeight;
+                y2 += 2*offset;
+                var pointControl3 = this.getFirstControllPoint(x1,y1,x2,y2);
+                var pointControl4 = this.getSencondControllPoint(x1,y1,x2,y2);
+                ctx.bezierCurveTo(pointControl4.x,pointControl4.y,pointControl3.x,pointControl3.y,x1,y1);
+
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.fill();
                 ctx.stroke();
+
             },
             lineto : function(ctx,x1,y1,x2,y2){
                 ctx.beginPath();
