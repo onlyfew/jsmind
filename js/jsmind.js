@@ -44,6 +44,7 @@
         theme : null,
         mode :'full',     // full or side
         support_html : true,
+        support_yimiyuedu : false,
 
         view:{
             hmargin:100,
@@ -108,9 +109,28 @@
         if(!sId){logger.error('invalid nodeid');return;}
         if(typeof iIndex != 'number'){logger.error('invalid node index');return;}
         if(typeof bExpanded === 'undefined'){bExpanded = true;}
+
+        //加工topic by zhan
+        var realTopic = sTopic;
+        if (jm.current.options.support_yimiyuedu) {
+            var LINE_WORD_COUNT = 5;
+            var lineCount = parseInt(sTopic.length / LINE_WORD_COUNT) + 1;
+            if (lineCount > 1) {
+                realTopic = "";
+                for (var i=0;i<lineCount;i++) {
+                    if(i==lineCount-1)
+                        realTopic += sTopic.substring(i*LINE_WORD_COUNT);
+                    else
+                        realTopic += sTopic.substring(i*LINE_WORD_COUNT, (i+1)*LINE_WORD_COUNT) + "<br/>";
+                }
+            }
+        
+            realTopic = realTopic.replace(/⊰/g,'<u>&nbsp;&nbsp;').replace(/⊱/g,'&nbsp;&nbsp;</u>');
+        }
+
         this.id = sId;
         this.index = iIndex;
-        this.topic = sTopic;
+        this.topic = realTopic;
         this.data = oData || {};
         this.isroot = bIsRoot;
         this.parent = oParent;
