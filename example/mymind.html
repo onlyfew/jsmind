@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link type="text/css" rel="stylesheet" href="../style/jsmind.css?v=5" />
+        <link type="text/css" rel="stylesheet" href="../style/jsmind.css?v=6" />
         <style type="text/css">
             html, body {
                 height: 100%;
@@ -31,14 +31,15 @@
         <button id="zoom-out-button" onclick="zoomOut()">zoom out</button>
         <button id="screen-shot-button" onclick="screen_shot()">screen shot</button>
 
-        <script type="text/javascript" src="../js/jsmind.js?v=9"></script>
+        <script type="text/javascript" src="../js/jsmind.js?v=10"></script>
         <script type="text/javascript" src="../js/jsmind.screenshot.js"></script>
         <script type="text/javascript">
             var mind = {"data":{"children":[{"children":[{"topic":"草木凋得⊰慢⊱","id":"2143649447216130"},{"topic":"空气湿润","id":"2143649447216131"},{"topic":"天的颜色显得⊰淡⊱","id":"2143649447216132"},{"topic":"多雨少风","id":"2143649447216133"},{"topic":"⊰看不饱⊱，尝不透","id":"2143649447216134"}],"topic":"江南的秋","id":"2143649447216129"},{"children":[{"topic":"北国牵牛花以蓝色或⊰白色⊱者为佳","id":"2143649447216136"},{"topic":"北国的槐树能使人联想起⊰秋⊱","id":"2143649447216137"},{"topic":"⊰秋蝉的衰弱的残声⊱是北国的特点","id":"2143649447216138"},{"topic":"一层秋雨一层凉","id":"2143649447216139"},{"topic":"北方秋天的奇景指的是⊰果树⊱","id":"2143649447216140"}],"topic":"北国的秋","id":"2143649447216135"},{"children":[{"topic":"中国的⊰诗文⊱里赞颂秋的文字特别多","id":"2143649447216142"},{"topic":"中国的秋的深味，在⊰北方⊱才感受的到","id":"2143649447216143"},{"topic":"南国之秋也有特异的地方，可是⊰色彩不浓⊱","id":"2143649447216144"}],"topic":"南北之秋","id":"2143649447216141"}],"topic":"故都的秋","id":"2143649447216128"}};
             var options = {
                 container:'jsmind_container',
                 editable:true,
-                support_yimiyuedu:true
+                support_yimiyuedu:true,
+                yimiyuedu_style:1
             };
             var jm = new jsMind(options);
             jm.show(mind);
