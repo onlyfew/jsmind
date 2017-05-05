@@ -2290,6 +2290,12 @@
             this.e_panel.appendChild(this.e_canvas);
             this.e_panel.appendChild(this.e_nodes);
 
+            //zhan
+            if (jm.current.options.support_yimiyuedu) {
+                var styleNo = jm.current.options.yimiyuedu_style;
+                this.e_panel.className = 'jsmind-inner jsmind-inner-bg-'+styleNo;
+            }
+
             this.e_editor.className = 'jsmind-editor';
             this.e_editor.type = 'text';
 

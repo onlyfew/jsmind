@@ -18,6 +18,27 @@
     user-select:none;
 }
 
+.jsmind-inner-bg-1{
+	background: url(../image/jsmind/style_1/mind_bg.png) no-repeat;
+	background-size: cover;
+}
+.jsmind-inner-bg-2{
+	background: url(../image/jsmind/style_2/mind_bg.png) no-repeat;
+	background-size: cover;
+}
+.jsmind-inner-bg-3{
+	background: url(../image/jsmind/style_3/mind_bg.png) no-repeat;
+	background-size: cover;
+}
+.jsmind-inner-bg-4{
+	background: url(../image/jsmind/style_4/mind_bg.png) no-repeat;
+	background-size: cover;
+}
+.jsmind-inner-bg-5{
+	background: url(../image/jsmind/style_5/mind_bg.png) no-repeat;
+	background-size: cover;
+}
+
 /* z-index:1 */
 canvas{position:absolute;z-index:1;}
 
