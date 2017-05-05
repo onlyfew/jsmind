@@ -106,6 +106,13 @@
             logger.error('the options.container should not be null or empty.');
             return;
         }
+
+        //zhan
+        if (options.support_yimiyuedu) {
+            var styleNo = options.yimiyuedu_style;
+            opts.theme = "yimiyuedu-"+styleNo;
+        }
+
         this.options = opts;
         this.inited = false;
         this.mind = null;
@@ -137,7 +144,7 @@
                 }
             }
         
-            realTopic = realTopic.replace(/⊰/g,'<u>&nbsp;&nbsp;').replace(/⊱/g,'&nbsp;&nbsp;</u>');
+            realTopic = realTopic.replace(/⊰/g,'<u class="right-answer">&nbsp;&nbsp;').replace(/⊱/g,'&nbsp;&nbsp;</u>');
         }
 
         this.id = sId;
@@ -2459,6 +2466,11 @@
             this._reset_node_custom_style(d, d_child, node.data);
 
             //zhan
+            if(!node.isroot && node.parent.isroot){
+                d.className = 'level-1';
+            }
+
+            //zhan
             //d_child.style.visibility='visible';
             d.appendChild(d_child);
             parent_node.appendChild(d);
@@ -2793,7 +2805,7 @@
 
             }
             //zhan
-            if (jm.current.options.support_yimiyuedu) {
+            if (1==0 && jm.current.options.support_yimiyuedu) {
                 var styleNo = jm.current.options.yimiyuedu_style;
                 var backgroundImage = "../image/node_bg_"+styleNo+".png";
 
@@ -2854,6 +2866,30 @@
         draw_line:function(pin,pout,offset,canvas_ctx){
             var ctx = canvas_ctx || this.canvas_ctx;
             ctx.strokeStyle = this.opts.line_color;
+            //zhan
+            if (jm.current.options.support_yimiyuedu) {
+                var styleNo = jm.current.options.yimiyuedu_style;
+                switch(styleNo) {
+                    case 1:
+                        ctx.strokeStyle = "#F00";
+                        break;
+                    case 2:
+                        ctx.strokeStyle = "#0F0";
+                        break;
+                    case 3:
+                        ctx.strokeStyle = "#00F";
+                        break;
+                    case 4:
+                        ctx.strokeStyle = "#F00";
+                        break;
+                    case 5:
+                        ctx.strokeStyle = "#F00";
+                        break;
+                    default:
+                        ctx.strokeStyle = this.opts.line_color;
+                }
+            }
+
             ctx.lineWidth = this.opts.line_width;
             ctx.lineCap = 'round';
             
