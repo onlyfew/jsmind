@@ -29,15 +29,14 @@
     }
 
     //zhan 节点背景图片大小
-    var _node_bg_edge_left_ = 20;
-    var _node_bg_edge_top_ = 10;
+    var _node_bg_edge_left_ = 10;
+    var _node_bg_edge_top_ = 5;
     var _image_point_1_ = {x:52,y:25};
     var _image_point_2_ = {x:137,y:25};
     var _image_point_3_ = {x:137,y:71};
     var _image_point_4_ = {x:52,y:71};
     var _image_width_ = 198;
     var _iamge_height_ = 100;
-    var _node_bg_edge_top_ = 10;
 
     // shortcut of methods in dom
     var $d = $w.document;
@@ -132,8 +131,13 @@
         //加工topic by zhan
         var realTopic = sTopic;
         if (jm.current.options.support_yimiyuedu) {
-            var LINE_WORD_COUNT = 5;
-            var lineCount = parseInt(sTopic.length / LINE_WORD_COUNT) + 1;
+            var LINE_WORD_COUNT = 8;
+            var topicLength = sTopic.length;
+            if (sTopic.indexOf("⊰")>-1) {
+                //去掉包裹答案的两个字符
+                topicLength -= 2;
+            }
+            var lineCount = parseInt(topicLength / LINE_WORD_COUNT) + 1;
             if (lineCount > 1) {
                 realTopic = "";
                 for (var i=0;i<lineCount;i++) {
@@ -1002,32 +1006,35 @@
             getSencondControllPoint: function(x1,y1,x2,y2) {
                 return {x: x2 - (x2 - x1) * this.xFactor, y: y2 - (y2 - y1)*this.yFactor};
             },
-            bezierto: function(ctx,x1,y1,x2,y2){
-                // ctx.beginPath();
-                // ctx.moveTo(x1,y1);
-                // ctx.bezierCurveTo(x1+(x2-x1)*2/3,y1,x1,y2,x2,y2);
-                // ctx.stroke();
+            bezierto: function(ctx,x1,y1,x2,y2,lineHeadHeight){
+                if (jm.current.options.support_yimiyuedu) {
+                    //var lineHeadHeight = 6.0;
+                    var offset = 2;
+                    y1 -= lineHeadHeight/2.0;
+                    y2 -= offset;
+                    var pointControl1 = this.getFirstControllPoint(x1,y1,x2,y2);
+                    var pointControl2 = this.getSencondControllPoint(x1,y1,x2,y2);
 
-                var lineHeadHeight = 6.0;
-                var offset = 2;
-                y1 -= lineHeadHeight/2.0;
-                y2 -= offset;
-                var pointControl1 = this.getFirstControllPoint(x1,y1,x2,y2);
-                var pointControl2 = this.getSencondControllPoint(x1,y1,x2,y2);
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.bezierCurveTo(pointControl1.x,pointControl1.y,pointControl2.x,pointControl2.y,x2,y2);
+                    
+                    y1 += lineHeadHeight;
+                    y2 += 2*offset;
+                    var pointControl3 = this.getFirstControllPoint(x1,y1,x2,y2);
+                    var pointControl4 = this.getSencondControllPoint(x1,y1,x2,y2);
+                    ctx.bezierCurveTo(pointControl4.x,pointControl4.y,pointControl3.x,pointControl3.y,x1,y1);
 
-                ctx.beginPath();
-                ctx.moveTo(x1, y1);
-                ctx.bezierCurveTo(pointControl1.x,pointControl1.y,pointControl2.x,pointControl2.y,x2,y2);
-                
-                y1 += lineHeadHeight;
-                y2 += 2*offset;
-                var pointControl3 = this.getFirstControllPoint(x1,y1,x2,y2);
-                var pointControl4 = this.getSencondControllPoint(x1,y1,x2,y2);
-                ctx.bezierCurveTo(pointControl4.x,pointControl4.y,pointControl3.x,pointControl3.y,x1,y1);
-
-                ctx.fillStyle = ctx.strokeStyle;
-                ctx.fill();
-                ctx.stroke();
+                    ctx.fillStyle = ctx.strokeStyle;
+                    ctx.fill();
+                    ctx.stroke();
+                }
+                else {
+                    ctx.beginPath();
+                    ctx.moveTo(x1,y1);
+                    ctx.bezierCurveTo(x1+(x2-x1)*2/3,y1,x1,y2,x2,y2);
+                    ctx.stroke();
+                }
 
             },
             lineto : function(ctx,x1,y1,x2,y2){
@@ -2859,11 +2866,11 @@
                 if(('visible' in node._data.layout) && !node._data.layout.visible){continue;}
                 pin = this.layout.get_node_point_in(node);
                 pout = this.layout.get_node_point_out(node.parent);
-                this.draw_line(pout,pin,_offset,canvas_ctx);
+                this.draw_line(pout,pin,_offset,canvas_ctx,node.parent.isroot);
             }
         },
 
-        draw_line:function(pin,pout,offset,canvas_ctx){
+        draw_line:function(pin,pout,offset,canvas_ctx,is_first_level){
             var ctx = canvas_ctx || this.canvas_ctx;
             ctx.strokeStyle = this.opts.line_color;
             //zhan
@@ -2871,19 +2878,19 @@
                 var styleNo = jm.current.options.yimiyuedu_style;
                 switch(styleNo) {
                     case 1:
-                        ctx.strokeStyle = "#F00";
+                        ctx.strokeStyle = is_first_level ? "#B25900":"#E17100";
                         break;
                     case 2:
-                        ctx.strokeStyle = "#0F0";
+                        ctx.strokeStyle = is_first_level ? "#E2695B":"#EEA69D";
                         break;
                     case 3:
-                        ctx.strokeStyle = "#00F";
+                        ctx.strokeStyle = is_first_level ? "#FFD83C":"#FFFF99";
                         break;
                     case 4:
-                        ctx.strokeStyle = "#F00";
+                        ctx.strokeStyle = is_first_level ? "#DC73FF":"#BF00FF";
                         break;
                     case 5:
-                        ctx.strokeStyle = "#F00";
+                        ctx.strokeStyle = is_first_level ? "#FAAD35":"#EA8F86";
                         break;
                     default:
                         ctx.strokeStyle = this.opts.line_color;
@@ -2898,7 +2905,8 @@
                 pin.x + offset.x,
                 pin.y + offset.y,
                 pout.x + offset.x,
-                pout.y + offset.y);
+                pout.y + offset.y,
+                is_first_level ? 30.0:5.0);
         },
     };
 
