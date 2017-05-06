@@ -2875,7 +2875,7 @@
             ctx.strokeStyle = this.opts.line_color;
             //zhan
             if (jm.current.options.support_yimiyuedu) {
-                var styleNo = jm.current.options.yimiyuedu_style;
+                var styleNo = parseInt(jm.current.options.yimiyuedu_style);
                 switch(styleNo) {
                     case 1:
                         ctx.strokeStyle = is_first_level ? "#B25900":"#E17100";
