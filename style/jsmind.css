@@ -69,18 +69,23 @@ jmexpander:hover{border-color:#000;}
 /* yimiyuedu themes */
 jmnodes.theme-yimiyuedu-1 jmnode{border-color:#6E4E35;}
 jmnodes.theme-yimiyuedu-1 jmnode:hover{border-color:#6E4E35;}
+jmnodes.theme-yimiyuedu-1 jmexpander{border-color:#E17100; color:#E17100;}
 
 jmnodes.theme-yimiyuedu-2 jmnode{border-color:#5590D3;}
 jmnodes.theme-yimiyuedu-2 jmnode:hover{border-color:#5590D3;}
+jmnodes.theme-yimiyuedu-2 jmexpander{border-color:#EEA69D; color:#EEA69D;}
 
 jmnodes.theme-yimiyuedu-3 jmnode{border-color:#199858;}
 jmnodes.theme-yimiyuedu-3 jmnode:hover{border-color:#199858;}
+jmnodes.theme-yimiyuedu-3 jmexpander{border-color:#FFFF99; color:#FFFF99;}
 
 jmnodes.theme-yimiyuedu-4 jmnode{border-color:#FCE9C0;}
 jmnodes.theme-yimiyuedu-4 jmnode:hover{border-color:#FCE9C0;}
+jmnodes.theme-yimiyuedu-4 jmexpander{border-color:#BF00FF; color:#BF00FF;}
 
 jmnodes.theme-yimiyuedu-5 jmnode{border-color:#068EB6;}
 jmnodes.theme-yimiyuedu-5 jmnode:hover{border-color:#068EB6;}
+jmnodes.theme-yimiyuedu-5 jmexpander{border-color:#EA8F86; color:#EA8F86;}
 
 /* primary theme */
 jmnodes.theme-primary jmnode{background-color:#428bca;color:#fff;border-color:#357ebd;}
