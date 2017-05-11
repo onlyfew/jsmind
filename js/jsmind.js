@@ -132,23 +132,37 @@
         var realTopic = sTopic;
         if (jm.current.options.support_yimiyuedu) {
             var LINE_WORD_COUNT = 8;
-            var topicLength = sTopic.length;
-            if (sTopic.indexOf("⊰")>-1) {
-                //去掉包裹答案的两个字符
-                topicLength -= 2;
+            var tempTopic = sTopic;
+            var answer = "";
+            var answerStartIndex = tempTopic.indexOf("⊰");
+            var answerEndIndex = tempTopic.indexOf("⊱");
+            //是否包含答案
+            if (answerStartIndex>-1 && answerEndIndex>-1) {
+                answer = tempTopic.substring(answerStartIndex, answerEndIndex+1);
+                if (answer.replace(/\s/g,'') == "⊰⊱") {
+                    //去掉纯空格的答案
+                    tempTopic = tempTopic.replace(/⊰.*⊱/g,'⊰');
+                }
             }
+            var topicLength = tempTopic.length;
             var lineCount = parseInt(topicLength / LINE_WORD_COUNT) + 1;
             if (lineCount > 1) {
                 realTopic = "";
                 for (var i=0;i<lineCount;i++) {
                     if(i==lineCount-1)
-                        realTopic += sTopic.substring(i*LINE_WORD_COUNT);
+                        realTopic += tempTopic.substring(i*LINE_WORD_COUNT);
                     else
-                        realTopic += sTopic.substring(i*LINE_WORD_COUNT, (i+1)*LINE_WORD_COUNT) + "<br/>";
+                        realTopic += tempTopic.substring(i*LINE_WORD_COUNT, (i+1)*LINE_WORD_COUNT) + "<br/>";
                 }
+                if (answerStartIndex > -1 && answer.replace(/\s/g,'') == "⊰⊱") {
+                    //填回空格
+                    realTopic = realTopic.replace(/⊰/g,answer);
+                }
+                //样式调整
+                realTopic = realTopic.replace(/⊰<br\/>/g,'<br/>⊰').replace(/<br\/>⊱/g,'⊱<br/>');
             }
         
-            realTopic = realTopic.replace(/⊰/g,'<u class="right-answer">&nbsp;&nbsp;').replace(/⊱/g,'&nbsp;&nbsp;</u>');
+            realTopic = realTopic.replace(/\s/g,'&nbsp;').replace(/⊰/g,'<u class="right-answer">&nbsp;').replace(/⊱/g,'&nbsp;</u>');
         }
 
         this.id = sId;
