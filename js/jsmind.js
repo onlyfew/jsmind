@@ -2672,7 +2672,8 @@
             var outer_h = this.e_panel.clientHeight;
             if(this.size.w > outer_w){
                 var _offset = this.get_view_offset();
-                this.e_panel.scrollLeft = _offset.x - outer_w/2;
+                //zhan 减少左侧的空白区域
+                this.e_panel.scrollLeft = _offset.x - outer_w/2 + this.opts.hmargin;
             }
             if(this.size.h > outer_h){
                 this.e_panel.scrollTop = (this.size.h - outer_h)/2;
