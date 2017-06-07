@@ -142,6 +142,8 @@
                 if (answer.replace(/\s/g,'') == "⊰⊱") {
                     //去掉纯空格的答案
                     tempTopic = tempTopic.replace(/⊰.*⊱/g,'⊰');
+                    //答案为空时固定6个空格，显示横线长度合适
+                    answer = "⊰      ⊱";
                 }
             }
             var topicLength = tempTopic.length;
@@ -160,6 +162,10 @@
                 }
                 //样式调整
                 realTopic = realTopic.replace(/⊰<br\/>/g,'<br/>⊰').replace(/<br\/>⊱/g,'⊱<br/>');
+            }
+            else if (answerStartIndex > -1 && answer.replace(/\s/g,'') == "⊰⊱") {
+                //填回空格
+                realTopic = tempTopic.replace(/⊰/g,answer);
             }
         
             realTopic = realTopic.replace(/\s/g,'&nbsp;').replace(/⊰/g,'<u class="right-answer">&nbsp;').replace(/⊱/g,'&nbsp;</u>');
